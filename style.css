@@ -1,0 +1,28 @@
+html,body{margin:0;height:100%;background:#060a14;overflow:hidden;touch-action:manipulation}
+#scene{position:fixed;inset:0;width:100vw;height:100vh;image-rendering:pixelated;image-rendering:crisp-edges;display:block}
+#bubble{position:fixed;max-width:min(78vw,520px);padding:12px 16px;background:#120b07ee;color:#fff;font:700 18px/1.35 "Courier New",ui-monospace,monospace;letter-spacing:.5px;
+  border:4px solid #e2b26a;box-shadow:0 0 0 4px #1a0f08,8px 8px 0 #0008;transform-origin:var(--ox,0) 100%;animation:pop .28s steps(5) both;text-shadow:2px 2px 0 #000;image-rendering:pixelated}
+#bubble::after{content:"";position:absolute;left:var(--tail,24px);bottom:-16px;border:8px solid transparent;border-top-color:#e2b26a}
+#bubble.out{animation:unpop .25s steps(4) both}
+@keyframes pop{from{transform:scale(.1);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes unpop{to{transform:scale(.2);opacity:0}}
+#btext .c{display:inline-block;animation:ch .18s ease-out both}
+@keyframes ch{from{transform:translateY(6px) scale(.5);opacity:0}to{transform:none;opacity:1}}
+#ask{position:fixed;left:50%;bottom:max(12px,env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:8px;width:min(92vw,620px)}
+#q{flex:1;min-width:0;height:44px;padding:0 14px;background:#1a0f08e6;color:#fff4dc;border:4px solid #8a5a2e;box-shadow:0 0 0 3px #120804;outline:none;
+  font:700 17px "Courier New",ui-monospace,monospace;border-radius:0}
+#q::placeholder{color:#c79a63}
+#q:focus{border-color:#e2b26a}
+#ask button{width:52px;height:52px;padding:0;border:4px solid #8a5a2e;background:#3b2112;box-shadow:0 0 0 3px #120804;cursor:pointer;border-radius:0;display:grid;place-items:center}
+#ask button:hover,#ask button:focus-visible{border-color:#e2b26a;background:#5a3519;outline:none}
+#ask button:active{transform:translateY(2px)}
+#ask button i{width:24px;height:24px;display:block;image-rendering:pixelated;background-size:100% 100%}
+/* pixel mallet icon (8x8, drawn with box-shadows) */
+#send i{background:none;position:relative;width:3px;height:3px;box-shadow:
+ 9px 0 #f2d59a,12px 0 #f2d59a,15px 0 #f2d59a,6px 3px #f2d59a,9px 3px #e2b26a,12px 3px #e2b26a,15px 3px #e2b26a,18px 3px #f2d59a,
+ 6px 6px #c08a4d,9px 6px #e2b26a,12px 6px #e2b26a,15px 6px #c08a4d,18px 6px #c08a4d,9px 9px #c08a4d,12px 9px #c08a4d,15px 9px #c08a4d,
+ 6px 12px #9c6735,3px 15px #9c6735,0 18px #7a4c25,-3px 21px #7a4c25;transform:translate(-6px,-10px)}
+#mute{width:44px!important}
+#mute i{width:3px;height:3px;box-shadow:0 6px #f2d59a,0 9px #f2d59a,3px 3px #f2d59a,3px 6px #f2d59a,3px 9px #f2d59a,3px 12px #f2d59a,6px 0 #f2d59a,6px 3px #f2d59a,6px 6px #f2d59a,6px 9px #f2d59a,6px 12px #f2d59a,6px 15px #f2d59a,12px 3px #9fd6c0,15px 6px #9fd6c0,15px 9px #9fd6c0,12px 12px #9fd6c0;transform:translate(-8px,-8px)}
+#mute.off i{box-shadow:0 6px #8a6a4a,0 9px #8a6a4a,3px 3px #8a6a4a,3px 6px #8a6a4a,3px 9px #8a6a4a,3px 12px #8a6a4a,6px 0 #8a6a4a,6px 3px #8a6a4a,6px 6px #8a6a4a,6px 9px #8a6a4a,6px 12px #8a6a4a,6px 15px #8a6a4a,12px 3px #c55,15px 6px #c55,12px 9px #c55,15px 12px #c55}
+@media (max-width:600px){#bubble{font-size:15px;padding:9px 11px}#q{font-size:16px;height:40px}#ask button{width:48px;height:48px}}

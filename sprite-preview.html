@@ -1,0 +1,22 @@
+<!doctype html><meta charset=utf-8><title>Tung sprite preview</title>
+<style>html,body{margin:0;height:100%;background:#0b1020;overflow:hidden}canvas{display:block;width:100vw;height:100vh;image-rendering:pixelated}
+#ui{position:fixed;left:8px;top:8px;color:#cfd8e0;font:12px monospace;opacity:.7}</style>
+<canvas id=c></canvas><div id=ui><label><input type=checkbox id=sp> speaking</label> · ?talk=1 · ?t=sec</div>
+<script src=tung.js></script><script>
+var cv=document.getElementById('c'),g=cv.getContext('2d'),S,W,H,q=new URLSearchParams(location.search),sp=document.getElementById('sp');
+sp.checked=q.has('talk');
+function fit(){var cssW=document.documentElement.clientWidth,cssH=innerHeight;S=cssW>=1700?5:cssW>=1000?4:cssW>=600?3:2;W=Math.ceil(cssW/S);H=Math.ceil(cssH/S);cv.width=W;cv.height=H;g.imageSmoothingEnabled=false}
+fit();addEventListener('resize',fit);
+function hs(i){var n=Math.sin(i*127.1)*43758.5;return n-Math.floor(n)}
+var t0=performance.now(),fixed=q.has('t')?+q.get('t'):null;
+function frame(now){var t=fixed!=null?fixed:(now-t0)/1000;
+ var sky=g.createLinearGradient(0,0,0,H);sky.addColorStop(0,'#060a18');sky.addColorStop(.7,'#14233a');sky.addColorStop(1,'#1d2f3a');g.fillStyle=sky;g.fillRect(0,0,W,H);
+ // stub: distant tree silhouettes + moon rays
+ g.fillStyle='#0d1a22';for(var i=0;i<14;i++){var x=Math.round(hs(i)*W),th=Math.round(H*(.35+hs(i+40)*.3)),tw=Math.round(4+hs(i+9)*10);g.fillRect(x,H-th,Math.max(2,tw/3),th);for(var k=0;k<th*.5;k+=2)g.fillRect(x-Math.round(tw*(1-k/(th*.5))/1.2),H-th+k,Math.round(tw*2*(1-k/(th*.5))/1.2)+2,2);}
+ g.fillStyle='rgba(200,220,255,0.05)';for(i=0;i<3;i++){g.beginPath();var rx=W*(.15+i*.25);g.moveTo(rx,0);g.lineTo(rx+W*.06,0);g.lineTo(rx+W*.3,H);g.lineTo(rx+W*.18,H);g.fill();}
+ var gy=Math.round(H*0.95);g.fillStyle='#142218';g.fillRect(0,gy,W,H-gy);g.fillStyle='#1d3022';g.fillRect(0,gy,W,1);
+ var h=Tung.fit(W,H);window.__tung=Tung.draw(g,Math.round(W/2),gy,h,Tung.idle(t,sp.checked));
+ for(i=0;i<10;i++){var fx=Math.round((hs(i+3)*W+Math.sin(t*.4+i)*12+W)%W),fy=Math.round(H*(.3+hs(i+7)*.6)+Math.cos(t*.7+i*2)*6),on=Math.sin(t*2+i*3)>-.2;if(on){g.fillStyle='#f6e98a';g.fillRect(fx,fy,1,1);g.fillStyle='rgba(246,233,138,.25)';g.fillRect(fx-1,fy-1,3,3);}}
+ if(fixed==null)requestAnimationFrame(frame)}
+requestAnimationFrame(frame);
+</script>
